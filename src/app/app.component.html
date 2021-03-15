@@ -1,0 +1,70 @@
+<button (click)="changeLayer(2)">2 layers</button>
+<button (click)="changeLayer(3)">3 layers</button>
+<div style="display: flex; flex-direction: row">
+  <ux-partition-map
+    *ngIf="showIOSMap"
+    class="partition-map"
+    [dataset]="iOSDataSet"
+    [colors]="iOSColors"
+  >
+    <ng-template #partitionMapSegment let-segment="segment" let-value="value">
+      <div
+        class="flex-container width--100 height--100 align-items--center justify-content--center"
+        (mouseenter)="tooltip.show()"
+        (mouseleave)="tooltip.hide()"
+        (click)="selecteSeg(segment); tooltip.hide()"
+      >
+        <span
+          class="partition-map-segment-label txt-c"
+          #tooltip="ux-tooltip"
+          [uxTooltip]="'segTooltip'"
+          [tooltipContext]="{segment: segment, value: value}"
+          [tooltipDelay]="500"
+          tooltipClass="partition-map-tooltip"
+          [showTriggers]="[]"
+          [hideTriggers]="[]"
+        >
+          <!-- <div #jumpToDeviceLab>
+                          </div> -->
+          <div>
+            <p>
+              <span *ngIf="segment.name != 'iOS'">v</span>{{ segment.name }}
+            </p>
+            <span>({{value}})</span>
+          </div>
+        </span>
+      </div>
+    </ng-template>
+  </ux-partition-map>
+  <ux-partition-map
+    *ngIf="showAndroidMap"
+    class="partition-map"
+    [dataset]="androidDataSet"
+    [colors]="androidColors"
+  >
+    <ng-template #partitionMapSegment let-segment="segment" let-value="value">
+      <div
+        class="flex-container width--100 height--100 align-items--center justify-content--center"
+        (mouseenter)="tooltip.show()"
+        (mouseleave)="tooltip.hide()"
+        (click)="selecteSeg(segment); tooltip.hide()"
+      >
+        <span
+          class="partition-map-segment-label txt-c"
+          #tooltip="ux-tooltip"
+          [uxTooltip]="'segTooltip'"
+          [tooltipContext]="{segment: segment, value: value}"
+          [tooltipDelay]="500"
+          tooltipClass="partition-map-tooltip"
+          [showTriggers]="[]"
+          [hideTriggers]="[]"
+        >
+          <p>
+            <span *ngIf="segment.name != 'Android'">v</span>{{ segment.name }}
+          </p>
+          <p>({{value}})</p>
+        </span>
+      </div>
+    </ng-template>
+  </ux-partition-map>
+</div>
